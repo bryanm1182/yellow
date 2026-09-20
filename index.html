@@ -1,766 +1,3690 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta
+<meta charset="UTF-8">
+
+<meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  />
-  <title>Feliz día de las flores amarillas 😊</title>
+    content="width=device-width,
+    initial-scale=1.0,
+    maximum-scale=1.0,
+    user-scalable=no"
+/>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<title>Feliz día de las flores amarillas 😊</title>
 
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #000;
-      font-family: Arial, Helvetica, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
+<style>
 
-    #universo {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    canvas {
-      display: block;
-    }
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
 
-    .titulo {
-      position: fixed;
-      top: 26px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-18px);
-      z-index: 12;
-      width: 92%;
-      text-align: center;
-      pointer-events: none;
-      opacity: 0;
-      filter: blur(8px);
-      transition:
-        opacity 1.2s ease,
-        transform 1.2s ease,
-        filter 1.2s ease;
-    }
+body {
+    touch-action: none;
+}
 
-    .titulo.visible {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      filter: blur(0);
-    }
+#universo {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
 
-    .titulo h1 {
-      font-size: clamp(1.8rem, 4.5vw, 3.9rem);
-      font-weight: 700;
-      color: #d39b10;
-      letter-spacing: 0.4px;
-      text-shadow:
-        0 0 8px rgba(211, 155, 16, 0.35),
-        0 0 18px rgba(211, 155, 16, 0.18);
-    }
+canvas {
+    display: block;
+}
 
-    .pie {
-      position: fixed;
-      left: 50%;
-      bottom: 22px;
-      transform: translateX(-50%) translateY(18px);
-      z-index: 12;
-      width: 92%;
-      text-align: center;
-      pointer-events: none;
-      opacity: 0;
-      filter: blur(8px);
-      transition:
-        opacity 1.2s ease,
-        transform 1.2s ease,
-        filter 1.2s ease;
-    }
 
-    .pie.visible {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      filter: blur(0);
-    }
+/* ============================================= */
+/* TITULO */
+/* ============================================= */
 
-    .pie p {
-      font-size: clamp(0.95rem, 1.8vw, 1.25rem);
-      font-weight: 700;
-      color: #b8860b;
-      letter-spacing: 2px;
-      text-shadow:
-        0 0 6px rgba(184, 134, 11, 0.30),
-        0 0 12px rgba(184, 134, 11, 0.12);
-    }
+.titulo {
+    position: fixed;
 
-    .inicio {
-      position: fixed;
-      inset: 0;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        radial-gradient(circle at center,
-          rgba(40, 40, 40, 0.20) 0%,
-          rgba(0, 0, 0, 0.78) 48%,
-          rgba(0, 0, 0, 0.97) 100%);
-      cursor: pointer;
-      transition:
-        opacity 0.9s ease,
-        visibility 0.9s ease;
-    }
+    top: 25px;
+    left: 50%;
 
-    .inicio.ocultar {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+    width: 94%;
 
-    .inicio-contenido {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      transform: translateY(-10px);
-    }
+    transform:
+        translateX(-50%)
+        translateY(-25px);
 
-    .flor-inicial {
-      width: clamp(120px, 18vw, 190px);
-      height: clamp(120px, 18vw, 190px);
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      filter: drop-shadow(0 0 18px rgba(255, 212, 59, 0.40));
-      animation: florecer 2.3s ease-in-out infinite;
-    }
+    text-align: center;
 
-    .toque {
-      font-size: clamp(1rem, 2.2vw, 1.35rem);
-      color: #d39b10;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-shadow:
-        0 0 7px rgba(211, 155, 16, 0.30),
-        0 0 12px rgba(211, 155, 16, 0.14);
-      animation: parpadeo 1.7s ease-in-out infinite;
-    }
+    z-index: 15;
 
-    .dedicatoria {
-      position: fixed;
-      inset: 0;
-      z-index: 25;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-      background: rgba(0, 0, 0, 0.68);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.45s ease;
-    }
+    opacity: 0;
+    filter: blur(10px);
 
-    .dedicatoria.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    pointer-events: none;
 
-    .dedicatoria .tarjeta {
-      width: min(92vw, 680px);
-      border: 1px solid rgba(212, 155, 16, 0.28);
-      border-radius: 22px;
-      padding: 26px 22px;
-      background:
-        linear-gradient(180deg,
-          rgba(28, 22, 6, 0.96) 0%,
-          rgba(10, 10, 10, 0.96) 100%);
-      box-shadow:
-        0 0 28px rgba(212, 155, 16, 0.12),
-        inset 0 0 18px rgba(255, 214, 80, 0.05);
-      text-align: center;
-      transform: scale(0.92) translateY(12px);
-      transition: transform 0.45s ease;
-    }
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease,
+        filter 1.5s ease;
+}
 
-    .dedicatoria.visible .tarjeta {
-      transform: scale(1) translateY(0);
-    }
+.titulo.visible {
+    opacity: 1;
 
-    .dedicatoria p {
-      color: #f1d27b;
-      font-size: clamp(1rem, 2.2vw, 1.3rem);
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
+    transform:
+        translateX(-50%)
+        translateY(0);
 
-    .dedicatoria span {
-      display: block;
-      color: #b8860b;
-      font-size: 0.92rem;
-      opacity: 0.9;
-      letter-spacing: 1px;
-    }
+    filter: blur(0);
+}
 
-    .vineta {
-      position: fixed;
-      inset: 0;
-      z-index: 5;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at center,
-          transparent 54%,
-          rgba(0, 0, 0, 0.10) 74%,
-          rgba(0, 0, 0, 0.48) 100%);
-    }
+.titulo h1 {
 
-    @keyframes florecer {
-      0% {
-        transform: scale(0.72) rotate(-10deg);
-        filter: drop-shadow(0 0 10px rgba(255, 212, 59, 0.18));
-      }
-      35% {
-        transform: scale(1.02) rotate(-4deg);
-        filter: drop-shadow(0 0 18px rgba(255, 212, 59, 0.35));
-      }
-      60% {
-        transform: scale(1.12) rotate(0deg);
-        filter: drop-shadow(0 0 24px rgba(255, 212, 59, 0.45));
-      }
-      100% {
-        transform: scale(1) rotate(4deg);
-        filter: drop-shadow(0 0 18px rgba(255, 212, 59, 0.32));
-      }
-    }
-
-    @keyframes parpadeo {
-      0% { opacity: 0.48; }
-      50% { opacity: 1; }
-      100% { opacity: 0.48; }
-    }
-  </style>
-</head>
-<body>
-  <div id="universo"></div>
-
-  <div class="titulo" id="titulo">
-    <h1>Feliz día de las flores amarillas 😊</h1>
-  </div>
-
-  <div class="pie" id="pie">
-    <p>MI AMIGA NO SERA ESPECTADORA</p>
-  </div>
-
-  <div class="inicio" id="inicio">
-    <div class="inicio-contenido">
-      <div class="flor-inicial" id="florInicial"></div>
-      <div class="toque">Toque aquí</div>
-    </div>
-  </div>
-
-  <div class="dedicatoria" id="dedicatoria">
-    <div class="tarjeta">
-      <p id="textoDedicatoria"></p>
-      <span>Toque para cerrar</span>
-    </div>
-  </div>
-
-  <div class="vineta"></div>
-
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
-      }
-    }
-  </script>
-
-  <script type="module">
-    import * as THREE from "three";
-    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-
-    /* ===========================================
-       CONFIGURACIÓN EDITABLE
-    =========================================== */
-    const TEXTO_DEDICATORIA =
-      "Gracias por tu amistad, por tu esencia y por la bonita persona que eres. 🌻";
-
-    const TOTAL_FLORES_GALAXIA = window.innerWidth < 700 ? 220 : 340;
-    const TOTAL_FLORES_LLUVIA = window.innerWidth < 700 ? 26 : 42;
-    const PETALOS_GRAN_FLOR = 8;
-    const DURACION_CONSTRUCCION = 7800;
-
-    /* ===========================================
-       REFERENCIAS DOM
-    =========================================== */
-    const contenedor = document.getElementById("universo");
-    const inicio = document.getElementById("inicio");
-    const florInicialDOM = document.getElementById("florInicial");
-    const titulo = document.getElementById("titulo");
-    const pie = document.getElementById("pie");
-    const dedicatoria = document.getElementById("dedicatoria");
-    const textoDedicatoria = document.getElementById("textoDedicatoria");
-
-    textoDedicatoria.textContent = TEXTO_DEDICATORIA;
-
-    /* ===========================================
-       ESCENA
-    =========================================== */
-    const escena = new THREE.Scene();
-    escena.fog = new THREE.FogExp2(0x000000, 0.0032);
-
-    const camara = new THREE.PerspectiveCamera(
-      55,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-
-    camara.position.set(0, 5, 17);
-
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: false
-    });
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.setClearColor(0x000000, 1);
-    contenedor.appendChild(renderer.domElement);
-
-    const controles = new OrbitControls(camara, renderer.domElement);
-    controles.enableDamping = true;
-    controles.dampingFactor = 0.05;
-    controles.enablePan = false;
-    controles.enableZoom = true;
-    controles.minDistance = 20;
-    controles.maxDistance = 92;
-    controles.enabled = false;
-    controles.autoRotate = false;
-    controles.minPolarAngle = 0.35;
-    controles.maxPolarAngle = 1.35;
-    controles.target.set(0, 0, 0);
-
-    const universo = new THREE.Group();
-    escena.add(universo);
-
-    /* ===========================================
-       TEXTURAS
-    =========================================== */
-    function crearTexturaEstrella() {
-      const canvas = document.createElement("canvas");
-      canvas.width = 128;
-      canvas.height = 128;
-      const ctx = canvas.getContext("2d");
-
-      const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-      grad.addColorStop(0, "rgba(255,255,255,1)");
-      grad.addColorStop(0.25, "rgba(255,225,120,0.9)");
-      grad.addColorStop(1, "rgba(255,200,0,0)");
-
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 128, 128);
-
-      return new THREE.CanvasTexture(canvas);
-    }
-
-    function crearCanvasFlor() {
-      const canvas = document.createElement("canvas");
-      canvas.width = 256;
-      canvas.height = 256;
-      const ctx = canvas.getContext("2d");
-
-      ctx.translate(128, 128);
-
-      for (let i = 0; i < 16; i++) {
-        ctx.save();
-        ctx.rotate((i / 16) * Math.PI * 2);
-
-        const grad = ctx.createRadialGradient(0, -54, 5, 0, -54, 42);
-        grad.addColorStop(0, "#fff7b3");
-        grad.addColorStop(0.40, "#ffd84e");
-        grad.addColorStop(1, "#c9980c");
-
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.ellipse(0, -54, 17, 42, 0, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.restore();
-      }
-
-      const centro = ctx.createRadialGradient(0, 0, 4, 0, 0, 31);
-      centro.addColorStop(0, "#8a5900");
-      centro.addColorStop(0.55, "#5c3400");
-      centro.addColorStop(1, "#2a1400");
-
-      ctx.fillStyle = centro;
-      ctx.beginPath();
-      ctx.arc(0, 0, 30, 0, Math.PI * 2);
-      ctx.fill();
-
-      for (let i = 0; i < 70; i++) {
-        const a = Math.random() * Math.PI * 2;
-        const r = Math.random() * 22;
-        ctx.fillStyle = "rgba(255, 198, 40, 0.72)";
-        ctx.beginPath();
-        ctx.arc(Math.cos(a) * r, Math.sin(a) * r, 1 + Math.random() * 1.4, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      return canvas;
-    }
-
-    const canvasFlor = crearCanvasFlor();
-    florInicialDOM.style.backgroundImage = `url(${canvasFlor.toDataURL()})`;
-
-    const texturaFlor = new THREE.CanvasTexture(canvasFlor);
-    texturaFlor.colorSpace = THREE.SRGBColorSpace;
-
-    const texturaEstrella = crearTexturaEstrella();
-    texturaEstrella.colorSpace = THREE.SRGBColorSpace;
-
-    /* ===========================================
-       ESTRELLAS DE FONDO
-    =========================================== */
-    function crearFondoEstrellas() {
-      const cantidad = 520;
-      const posiciones = new Float32Array(cantidad * 3);
-
-      for (let i = 0; i < cantidad; i++) {
-        const radio = 60 + Math.random() * 220;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(2 * Math.random() - 1);
-
-        posiciones[i * 3] = radio * Math.sin(phi) * Math.cos(theta);
-        posiciones[i * 3 + 1] = radio * Math.cos(phi);
-        posiciones[i * 3 + 2] = radio * Math.sin(phi) * Math.sin(theta);
-      }
-
-      const geometria = new THREE.BufferGeometry();
-      geometria.setAttribute("position", new THREE.BufferAttribute(posiciones, 3));
-
-      const material = new THREE.PointsMaterial({
-        size: 0.65,
-        map: texturaEstrella,
-        transparent: true,
-        opacity: 0.55,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-        color: 0xf6d776
-      });
-
-      const puntos = new THREE.Points(geometria, material);
-      escena.add(puntos);
-      return puntos;
-    }
-
-    const estrellasFondo = crearFondoEstrellas();
-
-    /* ===========================================
-       GRUPOS
-    =========================================== */
-    const grupoGalaxia = new THREE.Group();
-    universo.add(grupoGalaxia);
-
-    const grupoLluvia = new THREE.Group();
-    universo.add(grupoLluvia);
-
-    /* ===========================================
-       FLOR CENTRAL GRANDE
-    =========================================== */
-    const florCentral = new THREE.Sprite(
-      new THREE.SpriteMaterial({
-        map: texturaFlor,
-        transparent: true,
-        opacity: 1,
-        depthWrite: false
-      })
-    );
-
-    florCentral.scale.set(8.8, 8.8, 8.8);
-    florCentral.position.set(0, 0, 0);
-    grupoGalaxia.add(florCentral);
-
-    /* ===========================================
-       GALAXIA EN FORMA DE FLOR GRANDE
-    =========================================== */
-    const floresGalaxia = [];
-
-    function posicionObjetivoGranFlor(indice, total) {
-      const theta = (indice / total) * Math.PI * 2 * 1.08 + Math.random() * 0.35;
-
-      const petaloBase =
-        0.34 +
-        0.66 * Math.abs(Math.sin((PETALOS_GRAN_FLOR / 2) * theta));
-
-      const radioMax = 34;
-      const radio =
-        petaloBase *
-        radioMax *
-        (0.22 + 0.78 * Math.pow(Math.random(), 0.72));
-
-      const x = Math.cos(theta) * radio + (Math.random() - 0.5) * 1.25;
-      const z = Math.sin(theta) * radio + (Math.random() - 0.5) * 1.25;
-      const y = (Math.random() - 0.5) * 1.8;
-
-      return { x, y, z };
-    }
-
-    for (let i = 0; i < TOTAL_FLORES_GALAXIA; i++) {
-      const sprite = new THREE.Sprite(
-        new THREE.SpriteMaterial({
-          map: texturaFlor,
-          transparent: true,
-          opacity: 0,
-          depthWrite: false
-        })
-      );
-
-      const destino = posicionObjetivoGranFlor(i, TOTAL_FLORES_GALAXIA);
-
-      const startX = (Math.random() - 0.5) * 24;
-      const startY = 28 + Math.random() * 28;
-      const startZ = (Math.random() - 0.5) * 24;
-
-      sprite.position.set(startX, startY, startZ);
-      sprite.scale.set(0.001, 0.001, 0.001);
-
-      sprite.userData = {
-        target: new THREE.Vector3(destino.x, destino.y, destino.z),
-        start: new THREE.Vector3(startX, startY, startZ),
-        progress: 0,
-        revelada: false,
-        oscilacion: Math.random() * Math.PI * 2,
-        baseY: destino.y,
-        targetScale: 0.78 + Math.random() * 1.32,
-        giro: Math.random() * Math.PI * 2
-      };
-
-      grupoGalaxia.add(sprite);
-      floresGalaxia.push(sprite);
-    }
-
-    /* ===========================================
-       LLUVIA SUAVE CONTINUA
-    =========================================== */
-    const floresLluvia = [];
-
-    function reiniciarFlorLluvia(flor, arriba = true) {
-      const radio = 6 + Math.random() * 32;
-      const angulo = Math.random() * Math.PI * 2;
-
-      flor.position.set(
-        Math.cos(angulo) * radio + (Math.random() - 0.5) * 10,
-        arriba ? 30 + Math.random() * 18 : 10 + Math.random() * 18,
-        Math.sin(angulo) * radio + (Math.random() - 0.5) * 10
-      );
-
-      const escala = 0.45 + Math.random() * 0.9;
-      flor.scale.set(escala, escala, escala);
-
-      flor.material.opacity = 0.12 + Math.random() * 0.35;
-
-      flor.userData.velocidad = 0.065 + Math.random() * 0.08;
-      flor.userData.deriva = (Math.random() - 0.5) * 0.015;
-    }
-
-    for (let i = 0; i < TOTAL_FLORES_LLUVIA; i++) {
-      const flor = new THREE.Sprite(
-        new THREE.SpriteMaterial({
-          map: texturaFlor,
-          transparent: true,
-          opacity: 0,
-          depthWrite: false
-        })
-      );
-
-      flor.userData = {
-        velocidad: 0.08,
-        deriva: 0
-      };
-
-      reiniciarFlorLluvia(flor, true);
-      grupoLluvia.add(flor);
-      floresLluvia.push(flor);
-    }
-
-    /* ===========================================
-       ESTADO
-    =========================================== */
-    const estado = {
-      iniciado: false,
-      tiempoInicio: 0,
-      completo: false,
-      dedicatoriaVisible: false,
-      ultimoInicioClick: 0
-    };
-
-    function clamp(v, min, max) {
-      return Math.min(Math.max(v, min), max);
-    }
-
-    function easeOutCubic(x) {
-      return 1 - Math.pow(1 - x, 3);
-    }
-
-    function easeInOutCubic(x) {
-      return x < 0.5
-        ? 4 * x * x * x
-        : 1 - Math.pow(-2 * x + 2, 3) / 2;
-    }
-
-    function iniciarExperiencia() {
-      if (estado.iniciado) return;
-
-      estado.iniciado = true;
-      estado.tiempoInicio = performance.now();
-      estado.ultimoInicioClick = Date.now();
-
-      inicio.classList.add("ocultar");
-    }
-
-    function toggleDedicatoria() {
-      estado.dedicatoriaVisible = !estado.dedicatoriaVisible;
-      dedicatoria.classList.toggle("visible", estado.dedicatoriaVisible);
-    }
-
-    inicio.addEventListener("click", iniciarExperiencia);
-    inicio.addEventListener("touchstart", iniciarExperiencia, { passive: true });
-
-    window.addEventListener("click", (e) => {
-      if (!estado.iniciado || !estado.completo) return;
-
-      if (Date.now() - estado.ultimoInicioClick < 900) return;
-
-      if (e.target.closest(".dedicatoria .tarjeta")) return;
-
-      toggleDedicatoria();
-    });
-
-    dedicatoria.addEventListener("click", () => {
-      toggleDedicatoria();
-    });
-
-    /* ===========================================
-       ANIMACIÓN
-    =========================================== */
-    const reloj = new THREE.Clock();
-
-    function animar() {
-      requestAnimationFrame(animar);
-
-      const tiempo = reloj.getElapsedTime();
-
-      /* flor central con latido */
-      const pulsoCentral = 8.8 + Math.sin(tiempo * 2.1) * 0.35;
-      florCentral.scale.set(pulsoCentral, pulsoCentral, pulsoCentral);
-
-      estrellasFondo.rotation.y -= 0.00008;
-
-      if (!estado.iniciado) {
-        camara.position.lerp(new THREE.Vector3(0, 5, 17), 0.08);
-        camara.lookAt(0, 0, 0);
-      }
-
-      if (estado.iniciado) {
-        const progreso = clamp(
-          (performance.now() - estado.tiempoInicio) / DURACION_CONSTRUCCION,
-          0,
-          1
+    font-size:
+        clamp(
+            1.7rem,
+            4.2vw,
+            3.8rem
         );
 
-        const suave = easeInOutCubic(progreso);
+    font-weight: 700;
 
-        camara.position.x = 0;
-        camara.position.y = 18 + 10 * suave;
-        camara.position.z = 22 + 26 * suave;
+    color: #c99400;
 
-        const floresVisibles = Math.floor(floresGalaxia.length * suave);
+    letter-spacing: .5px;
 
-        floresGalaxia.forEach((flor, index) => {
-          if (index < floresVisibles) {
-            flor.userData.revelada = true;
-          }
+    text-shadow:
+        0 0 7px rgba(201, 148, 0, .45),
+        0 0 16px rgba(201, 148, 0, .25),
+        0 0 30px rgba(201, 148, 0, .10);
+}
 
-          if (flor.userData.revelada) {
-            flor.userData.progress = clamp(flor.userData.progress + 0.018, 0, 1);
 
-            const t = easeOutCubic(flor.userData.progress);
+/* ============================================= */
+/* TEXTO INFERIOR */
+/* ============================================= */
 
-            flor.position.lerpVectors(
-              flor.userData.start,
-              flor.userData.target,
-              t
-            );
+.pie {
 
-            flor.material.opacity += (0.94 - flor.material.opacity) * 0.08;
+    position: fixed;
 
-            const escala = flor.scale.x + (flor.userData.targetScale - flor.scale.x) * 0.08;
-            flor.scale.set(escala, escala, escala);
+    bottom: 22px;
 
-            if (flor.userData.progress >= 0.995) {
-              flor.position.y =
-                flor.userData.baseY +
-                Math.sin(tiempo * 0.8 + flor.userData.oscilacion) * 0.16;
-            }
-          }
-        });
+    left: 50%;
 
-        grupoGalaxia.rotation.y += 0.0011;
+    width: 94%;
 
-        /* lluvia continua */
-        floresLluvia.forEach((flor) => {
-          const activar = progreso > 0.18 ? 1 : 0;
-          if (!activar) return;
+    transform:
+        translateX(-50%)
+        translateY(30px);
 
-          flor.position.y -= flor.userData.velocidad;
-          flor.position.x += flor.userData.deriva;
+    text-align: center;
 
-          flor.material.opacity += (0.34 - flor.material.opacity) * 0.03;
+    z-index: 15;
 
-          if (flor.position.y <= 2.2) {
-            reiniciarFlorLluvia(flor, true);
-          }
-        });
+    opacity: 0;
 
-        if (progreso > 0.15) {
-          titulo.classList.add("visible");
-        }
+    pointer-events: none;
 
-        if (progreso > 0.55) {
-          pie.classList.add("visible");
-        }
+    filter: blur(7px);
 
-        if (progreso >= 1 && !estado.completo) {
-          estado.completo = true;
-          controles.enabled = true;
-          controles.autoRotate = true;
-          controles.autoRotateSpeed = 0.22;
-        }
-      }
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease,
+        filter 1.5s ease;
+}
 
-      controles.update();
-      renderer.render(escena, camara);
+.pie.visible {
+
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+
+    filter: blur(0);
+}
+
+.pie p {
+
+    color: #b88908;
+
+    font-size:
+        clamp(
+            .85rem,
+            1.7vw,
+            1.20rem
+        );
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    text-shadow:
+        0 0 7px rgba(184, 137, 8, .35),
+        0 0 15px rgba(184, 137, 8, .15);
+}
+
+
+/* ============================================= */
+/* INTRO */
+/* ============================================= */
+
+.inicio {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(40, 30, 0, .15) 0%,
+            rgba(0, 0, 0, .88) 45%,
+            #000 100%
+        );
+
+    z-index: 30;
+
+    cursor: pointer;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+.inicio.oculto {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+.inicio-contenido {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 28px;
+}
+
+
+/* ============================================= */
+/* FLOR DEL INICIO */
+/* ============================================= */
+
+.flor-inicial {
+
+    position: relative;
+
+    width:
+        clamp(
+            150px,
+            22vw,
+            220px
+        );
+
+    height:
+        clamp(
+            150px,
+            22vw,
+            220px
+        );
+
+    animation:
+        latidoFlor
+        2.6s
+        ease-in-out
+        infinite;
+}
+
+.petalo {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 21%;
+    height: 48%;
+
+    margin-left: -10.5%;
+    margin-top: -48%;
+
+    transform-origin:
+        50%
+        100%;
+
+    border-radius:
+        60%
+        60%
+        48%
+        48%;
+
+    background:
+
+        radial-gradient(
+            ellipse at 50% 25%,
+            #ffe984 0%,
+            #f5c329 42%,
+            #c89100 75%,
+            #a66e00 100%
+        );
+
+    filter:
+        drop-shadow(
+            0 0 5px
+            rgba(255, 201, 26, .38)
+        );
+
+    animation:
+        abrirPetalo
+        3s
+        cubic-bezier(.25,.8,.25,1)
+        infinite;
+}
+
+.centro-flor {
+
+    position: absolute;
+
+    width: 35%;
+    height: 35%;
+
+    left: 32.5%;
+    top: 32.5%;
+
+    border-radius: 50%;
+
+    z-index: 5;
+
+    background:
+
+        radial-gradient(
+            circle,
+            #8b5807 0%,
+            #5a3200 45%,
+            #2c1700 77%,
+            #130900 100%
+        );
+
+    box-shadow:
+
+        inset 0 0 9px #c38a0c,
+
+        0 0 18px rgba(
+            255,
+            200,
+            35,
+            .25
+        );
+}
+
+.toque {
+
+    color: #c99400;
+
+    font-size:
+        clamp(
+            1rem,
+            2vw,
+            1.35rem
+        );
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    animation:
+        toqueAnimado
+        1.5s
+        ease-in-out
+        infinite;
+
+    text-shadow:
+        0 0 7px
+        rgba(201, 148, 0, .3);
+}
+
+
+/* ============================================= */
+/* MINIJUEGO */
+/* ============================================= */
+
+.game-hud {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 72px;
+
+    transform:
+        translateX(-50%)
+        translateY(20px);
+
+    z-index: 20;
+
+    width: min(
+        90%,
+        500px
+    );
+
+    text-align: center;
+
+    color: #d3a31a;
+
+    font-size:
+        clamp(
+            .85rem,
+            1.5vw,
+            1rem
+        );
+
+    letter-spacing: 1px;
+
+    padding:
+        10px
+        18px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    border-radius: 30px;
+
+    background:
+        rgba(
+            10,
+            8,
+            0,
+            .60
+        );
+
+    border:
+        1px solid
+        rgba(
+            211,
+            163,
+            26,
+            .18
+        );
+
+    backdrop-filter:
+        blur(7px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.game-hud.visible {
+
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+.game-hud.completado {
+
+    color: #e1bb43;
+
+    animation:
+        hudGanador
+        1.4s
+        ease-in-out
+        infinite;
+}
+
+
+/* ============================================= */
+/* DEDICATORIA */
+/* ============================================= */
+
+.dedicatoria {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 40;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 22px;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            .82
+        );
+
+    backdrop-filter:
+        blur(6px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity .6s ease;
+}
+
+.dedicatoria.visible {
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+.tarjeta {
+
+    width:
+        min(
+            92vw,
+            650px
+        );
+
+    padding:
+        38px
+        30px;
+
+    text-align: center;
+
+    border-radius: 28px;
+
+    border:
+        1px solid
+        rgba(
+            198,
+            150,
+            14,
+            .30
+        );
+
+    background:
+
+        radial-gradient(
+            circle at top,
+            rgba(80, 55, 0, .35),
+            rgba(12, 10, 4, .98) 55%
+        );
+
+    box-shadow:
+
+        0 0 40px
+        rgba(
+            198,
+            150,
+            14,
+            .10
+        );
+
+    transform:
+        scale(.85)
+        translateY(25px);
+
+    transition:
+        transform
+        .7s
+        cubic-bezier(
+            .2,
+            .8,
+            .2,
+            1
+        );
+}
+
+.dedicatoria.visible
+.tarjeta {
+
+    transform:
+        scale(1)
+        translateY(0);
+}
+
+.icono-dedicatoria {
+
+    font-size: 4rem;
+
+    margin-bottom: 22px;
+
+    animation:
+        latidoSuave
+        2.5s
+        ease-in-out
+        infinite;
+}
+
+.tarjeta p {
+
+    color: #e4c770;
+
+    font-size:
+        clamp(
+            1rem,
+            2vw,
+            1.35rem
+        );
+
+    line-height: 1.7;
+}
+
+.cerrar {
+
+    margin-top: 28px;
+
+    border: 0;
+
+    border-radius: 25px;
+
+    padding:
+        10px
+        22px;
+
+    cursor: pointer;
+
+    background:
+        rgba(
+            198,
+            150,
+            14,
+            .14
+        );
+
+    color: #c99a14;
+
+    font-weight: 600;
+
+    font-size: .9rem;
+
+    border:
+        1px solid
+        rgba(
+            198,
+            150,
+            14,
+            .24
+        );
+}
+
+
+/* ============================================= */
+/* VIÑETA */
+/* ============================================= */
+
+.vineta {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5;
+
+    pointer-events: none;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            transparent 53%,
+            rgba(0,0,0,.12) 75%,
+            rgba(0,0,0,.65) 100%
+        );
+}
+
+
+/* ============================================= */
+/* ANIMACIONES */
+/* ============================================= */
+
+@keyframes abrirPetalo {
+
+    0%,
+    10% {
+
+        transform:
+            rotate(var(--angulo))
+            scaleY(.18)
+            scaleX(.45);
+
+        opacity: .45;
     }
 
-    animar();
+    45%,
+    70% {
 
-    window.addEventListener("resize", () => {
-      camara.aspect = window.innerWidth / window.innerHeight;
-      camara.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+        transform:
+            rotate(var(--angulo))
+            scaleY(1)
+            scaleX(1);
+
+        opacity: 1;
+    }
+
+    100% {
+
+        transform:
+            rotate(var(--angulo))
+            scaleY(.92)
+            scaleX(.95);
+
+        opacity: .90;
+    }
+}
+
+@keyframes latidoFlor {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes latidoSuave {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes toqueAnimado {
+
+    0%,
+    100% {
+        opacity: .4;
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform:
+            translateY(-4px);
+    }
+}
+
+@keyframes hudGanador {
+
+    0%,
+    100% {
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            scale(1.04);
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div id="universo"></div>
+
+
+<div
+    class="titulo"
+    id="titulo"
+>
+
+    <h1>
+        Feliz día de las flores amarillas 😊
+    </h1>
+
+</div>
+
+
+<div
+    class="game-hud"
+    id="gameHud"
+>
+
+    Atrapa las flores brillantes ✨
+
+</div>
+
+
+<div
+    class="pie"
+    id="pie"
+>
+
+    <p>
+        MI AMIGA NO SERA ESPECTADORA
+    </p>
+
+</div>
+
+
+<!-- INTRO -->
+
+<div
+    class="inicio"
+    id="inicio"
+>
+
+    <div class="inicio-contenido">
+
+        <div
+            class="flor-inicial"
+            id="florInicial"
+        >
+
+            <div
+                class="centro-flor"
+            ></div>
+
+        </div>
+
+        <div class="toque">
+
+            Toque aquí
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- DEDICATORIA FINAL -->
+
+<div
+    class="dedicatoria"
+    id="dedicatoria"
+>
+
+    <div class="tarjeta">
+
+        <div
+            class="icono-dedicatoria"
+        >
+            🌻
+        </div>
+
+        <p id="textoDedicatoria"></p>
+
+        <button
+            class="cerrar"
+            id="cerrarDedicatoria"
+        >
+
+            Volver a las flores
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="vineta"></div>
+
+
+<script type="importmap">
+
+{
+    "imports": {
+
+        "three":
+        "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+
+        "three/addons/":
+        "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+
+    }
+}
+
+</script>
+
+
+<script type="module">
+
+import * as THREE
+from "three";
+
+import {
+    OrbitControls
+}
+from "three/addons/controls/OrbitControls.js";
+
+
+/* =========================================================
+   CONFIGURACIÓN
+========================================================= */
+
+const ES_MOVIL =
+    window.innerWidth < 700;
+
+
+const CONFIG = {
+
+    /* MUCHAS MÁS FLORES */
+
+    floresGalaxia:
+        ES_MOVIL
+        ? 560
+        : 1100,
+
+
+    /* LLUVIA CONSTANTE */
+
+    floresLluvia:
+        ES_MOVIL
+        ? 50
+        : 90,
+
+
+    /* PETALOS DE LA FLOR GIGANTE */
+
+    petalosGigantes:
+        14,
+
+
+    /* DURACIÓN DE CONSTRUCCIÓN */
+
+    duracionConstruccion:
+        9500,
+
+
+    /* FLOR CENTRAL */
+
+    escalaCentro:
+        ES_MOVIL
+        ? 9.5
+        : 12,
+
+
+    /* MINIJUEGO */
+
+    objetivoJuego:
+        8,
+
+
+    floresJuegoSimultaneas:
+        ES_MOVIL
+        ? 3
+        : 4
+
+};
+
+
+/* =========================================================
+   DEDICATORIA
+========================================================= */
+
+const TEXTO_DEDICATORIA =
+
+    "Gracias por tu amistad, por tu forma de ser y por hacer que coincidir contigo haya sido algo bonito. Espero que nunca te falten flores amarillas, ni razones para sonreír. 🌻";
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const contenedor =
+    document.getElementById(
+        "universo"
+    );
+
+
+const inicio =
+    document.getElementById(
+        "inicio"
+    );
+
+
+const florInicial =
+    document.getElementById(
+        "florInicial"
+    );
+
+
+const titulo =
+    document.getElementById(
+        "titulo"
+    );
+
+
+const pie =
+    document.getElementById(
+        "pie"
+    );
+
+
+const gameHud =
+    document.getElementById(
+        "gameHud"
+    );
+
+
+const dedicatoria =
+    document.getElementById(
+        "dedicatoria"
+    );
+
+
+const textoDedicatoria =
+    document.getElementById(
+        "textoDedicatoria"
+    );
+
+
+const cerrarDedicatoria =
+    document.getElementById(
+        "cerrarDedicatoria"
+    );
+
+
+textoDedicatoria.textContent =
+    TEXTO_DEDICATORIA;
+
+
+/* =========================================================
+   FLOR HTML DEL INICIO
+========================================================= */
+
+const PETALOS_INTRO = 16;
+
+
+for (
+    let i = 0;
+    i < PETALOS_INTRO;
+    i++
+) {
+
+    const petalo =
+        document.createElement(
+            "div"
+        );
+
+
+    petalo.className =
+        "petalo";
+
+
+    petalo.style.setProperty(
+
+        "--angulo",
+
+        (
+            i *
+            (
+                360 /
+                PETALOS_INTRO
+            )
+        ) +
+        "deg"
+
+    );
+
+
+    petalo.style.animationDelay =
+        (
+            i *
+            35
+        ) +
+        "ms";
+
+
+    florInicial.insertBefore(
+
+        petalo,
+
+        florInicial.firstChild
+
+    );
+}
+
+
+/* =========================================================
+   THREE.JS
+========================================================= */
+
+const escena =
+    new THREE.Scene();
+
+
+escena.fog =
+    new THREE.FogExp2(
+
+        0x000000,
+
+        0.0028
+
+    );
+
+
+const camara =
+    new THREE.PerspectiveCamera(
+
+        55,
+
+        window.innerWidth /
+        window.innerHeight,
+
+        0.1,
+
+        1000
+
+    );
+
+
+const camaraInicio =
+    new THREE.Vector3(
+
+        0,
+        7,
+        22
+
+    );
+
+
+const camaraFinal =
+    new THREE.Vector3(
+
+        0,
+        55,
+        62
+
+    );
+
+
+camara.position.copy(
+    camaraInicio
+);
+
+
+const renderer =
+    new THREE.WebGLRenderer({
+
+        antialias: true,
+
+        alpha: false
+
     });
-  </script>
+
+
+renderer.setSize(
+
+    window.innerWidth,
+
+    window.innerHeight
+
+);
+
+
+renderer.setPixelRatio(
+
+    Math.min(
+
+        window.devicePixelRatio,
+
+        2
+
+    )
+
+);
+
+
+renderer.outputColorSpace =
+    THREE.SRGBColorSpace;
+
+
+renderer.setClearColor(
+
+    0x000000,
+
+    1
+
+);
+
+
+contenedor.appendChild(
+
+    renderer.domElement
+
+);
+
+
+/* =========================================================
+   CONTROLES
+========================================================= */
+
+const controles =
+    new OrbitControls(
+
+        camara,
+
+        renderer.domElement
+
+    );
+
+
+controles.enableDamping =
+    true;
+
+
+controles.dampingFactor =
+    0.045;
+
+
+controles.enablePan =
+    false;
+
+
+controles.enableZoom =
+    true;
+
+
+controles.minDistance =
+    24;
+
+
+controles.maxDistance =
+    105;
+
+
+controles.minPolarAngle =
+    0.25;
+
+
+controles.maxPolarAngle =
+    1.35;
+
+
+controles.autoRotate =
+    false;
+
+
+controles.enabled =
+    false;
+
+
+controles.target.set(
+
+    0,
+    0,
+    0
+
+);
+
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
+
+function clamp(
+    valor,
+    min,
+    max
+) {
+
+    return Math.min(
+
+        Math.max(
+            valor,
+            min
+        ),
+
+        max
+
+    );
+
+}
+
+
+function easeOutCubic(x) {
+
+    return (
+        1 -
+        Math.pow(
+            1 - x,
+            3
+        )
+    );
+
+}
+
+
+function easeInOutCubic(x) {
+
+    return (
+        x < .5
+
+        ?
+
+        4 *
+        x *
+        x *
+        x
+
+        :
+
+        1 -
+        Math.pow(
+            -2 * x + 2,
+            3
+        ) /
+        2
+    );
+
+}
+
+
+/* =========================================================
+   CREAR TEXTURA DE FLOR
+========================================================= */
+
+function crearCanvasFlor() {
+
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+
+    canvas.width =
+        256;
+
+
+    canvas.height =
+        256;
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    ctx.translate(
+        128,
+        128
+    );
+
+
+    /* PÉTALOS */
+
+    const petalos =
+        18;
+
+
+    for (
+        let i = 0;
+        i < petalos;
+        i++
+    ) {
+
+        ctx.save();
+
+
+        ctx.rotate(
+
+            (
+                i /
+                petalos
+            ) *
+            Math.PI *
+            2
+
+        );
+
+
+        const grad =
+            ctx.createRadialGradient(
+
+                0,
+                -54,
+                4,
+
+                0,
+                -54,
+                42
+
+            );
+
+
+        grad.addColorStop(
+            0,
+            "#fff29a"
+        );
+
+
+        grad.addColorStop(
+            .35,
+            "#ffd438"
+        );
+
+
+        grad.addColorStop(
+            .72,
+            "#d8a000"
+        );
+
+
+        grad.addColorStop(
+            1,
+            "#a76d00"
+        );
+
+
+        ctx.fillStyle =
+            grad;
+
+
+        ctx.beginPath();
+
+
+        ctx.ellipse(
+
+            0,
+            -54,
+
+            16,
+            42,
+
+            0,
+
+            0,
+
+            Math.PI *
+            2
+
+        );
+
+
+        ctx.fill();
+
+
+        ctx.restore();
+
+    }
+
+
+    /* CENTRO */
+
+    const centro =
+        ctx.createRadialGradient(
+
+            0,
+            0,
+            3,
+
+            0,
+            0,
+            32
+
+        );
+
+
+    centro.addColorStop(
+        0,
+        "#9b6500"
+    );
+
+
+    centro.addColorStop(
+        .45,
+        "#5c3400"
+    );
+
+
+    centro.addColorStop(
+        1,
+        "#1f1000"
+    );
+
+
+    ctx.fillStyle =
+        centro;
+
+
+    ctx.beginPath();
+
+
+    ctx.arc(
+
+        0,
+        0,
+        31,
+        0,
+        Math.PI *
+        2
+
+    );
+
+
+    ctx.fill();
+
+
+    /* SEMILLAS */
+
+    for (
+        let i = 0;
+        i < 75;
+        i++
+    ) {
+
+        const angulo =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const radio =
+            Math.random() *
+            23;
+
+
+        ctx.fillStyle =
+            "rgba(255,195,28,.72)";
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+
+            Math.cos(
+                angulo
+            ) *
+            radio,
+
+            Math.sin(
+                angulo
+            ) *
+            radio,
+
+            .8 +
+            Math.random() *
+            1.5,
+
+            0,
+
+            Math.PI *
+            2
+
+        );
+
+
+        ctx.fill();
+
+    }
+
+
+    return canvas;
+
+}
+
+
+/* =========================================================
+   TEXTURA
+========================================================= */
+
+const canvasFlor =
+    crearCanvasFlor();
+
+
+const texturaFlor =
+    new THREE.CanvasTexture(
+        canvasFlor
+    );
+
+
+texturaFlor.colorSpace =
+    THREE.SRGBColorSpace;
+
+
+/* =========================================================
+   GRUPOS
+========================================================= */
+
+const universo =
+    new THREE.Group();
+
+
+escena.add(
+    universo
+);
+
+
+const grupoGalaxia =
+    new THREE.Group();
+
+
+universo.add(
+    grupoGalaxia
+);
+
+
+const grupoLluvia =
+    new THREE.Group();
+
+
+escena.add(
+    grupoLluvia
+);
+
+
+const grupoJuego =
+    new THREE.Group();
+
+
+escena.add(
+    grupoJuego
+);
+
+
+const grupoExplosiones =
+    new THREE.Group();
+
+
+escena.add(
+    grupoExplosiones
+);
+
+
+/* =========================================================
+   MATERIAL COMPARTIDO
+========================================================= */
+
+const materialGalaxia =
+    new THREE.SpriteMaterial({
+
+        map:
+            texturaFlor,
+
+        transparent:
+            true,
+
+        opacity:
+            .96,
+
+        depthWrite:
+            false
+
+    });
+
+
+const materialLluvia =
+    new THREE.SpriteMaterial({
+
+        map:
+            texturaFlor,
+
+        transparent:
+            true,
+
+        opacity:
+            .55,
+
+        depthWrite:
+            false
+
+    });
+
+
+const materialJuego =
+    new THREE.SpriteMaterial({
+
+        map:
+            texturaFlor,
+
+        transparent:
+            true,
+
+        opacity:
+            1,
+
+        depthWrite:
+            false
+
+    });
+
+
+/* =========================================================
+   FLOR CENTRAL
+========================================================= */
+
+const materialCentro =
+    new THREE.SpriteMaterial({
+
+        map:
+            texturaFlor,
+
+        transparent:
+            true,
+
+        opacity:
+            1,
+
+        depthWrite:
+            false
+
+    });
+
+
+const florCentral =
+    new THREE.Sprite(
+        materialCentro
+    );
+
+
+florCentral.scale.set(
+
+    2.5,
+    2.5,
+    2.5
+
+);
+
+
+florCentral.position.set(
+
+    0,
+    .8,
+    0
+
+);
+
+
+florCentral.userData.central =
+    true;
+
+
+grupoGalaxia.add(
+    florCentral
+);
+
+
+/* =========================================================
+   POSICIÓN DE LA GRAN FLOR / GALAXIA
+========================================================= */
+
+function posicionGranFlor(
+    indice
+) {
+
+    const random =
+        Math.random();
+
+
+    /*
+       PARTE 1:
+       centro alrededor
+       de la flor principal
+    */
+
+    if (
+        random <
+        .18
+    ) {
+
+        const angulo =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const radio =
+            6 +
+            Math.sqrt(
+                Math.random()
+            ) *
+            9;
+
+
+        return {
+
+            x:
+                Math.cos(
+                    angulo
+                ) *
+                radio,
+
+            y:
+                (
+                    Math.random() -
+                    .5
+                ) *
+                .8,
+
+            z:
+                Math.sin(
+                    angulo
+                ) *
+                radio
+
+        };
+
+    }
+
+
+    /*
+       PARTE 2:
+       pétalos gigantes
+    */
+
+    if (
+        random <
+        .88
+    ) {
+
+        const petalo =
+            Math.floor(
+
+                Math.random() *
+                CONFIG.petalosGigantes
+
+            );
+
+
+        const angulo =
+
+            (
+                petalo /
+                CONFIG.petalosGigantes
+            ) *
+
+            Math.PI *
+            2;
+
+
+        const t =
+            Math.pow(
+
+                Math.random(),
+
+                .68
+
+            );
+
+
+        const largo =
+            10 +
+            t *
+            28;
+
+
+        const anchoMax =
+            2 +
+            Math.sin(
+                Math.PI *
+                t
+            ) *
+            7;
+
+
+        const lateral =
+
+            (
+                Math.random() *
+                2 -
+                1
+            ) *
+
+            anchoMax;
+
+
+        const x =
+
+            Math.cos(
+                angulo
+            ) *
+            largo
+
+            +
+
+            Math.cos(
+                angulo +
+                Math.PI /
+                2
+            ) *
+            lateral;
+
+
+        const z =
+
+            Math.sin(
+                angulo
+            ) *
+            largo
+
+            +
+
+            Math.sin(
+                angulo +
+                Math.PI /
+                2
+            ) *
+            lateral;
+
+
+        return {
+
+            x:
+                x,
+
+            y:
+                (
+                    Math.random() -
+                    .5
+                ) *
+                1.2,
+
+            z:
+                z
+
+        };
+
+    }
+
+
+    /*
+       PARTE 3:
+       halo exterior
+       tipo galaxia
+    */
+
+    const progresion =
+        indice /
+        CONFIG.floresGalaxia;
+
+
+    const angulo =
+        progresion *
+        Math.PI *
+        10
+
+        +
+
+        Math.random() *
+        .4;
+
+
+    const radio =
+        31 +
+        Math.random() *
+        12;
+
+
+    return {
+
+        x:
+            Math.cos(
+                angulo
+            ) *
+            radio,
+
+        y:
+            (
+                Math.random() -
+                .5
+            ),
+
+        z:
+            Math.sin(
+                angulo
+            ) *
+            radio
+
+    };
+
+}
+
+
+/* =========================================================
+   CREAR LAS FLORES DE LA GALAXIA
+========================================================= */
+
+const floresGalaxia =
+    [];
+
+
+for (
+    let i = 0;
+    i < CONFIG.floresGalaxia;
+    i++
+) {
+
+    const flor =
+        new THREE.Sprite(
+            materialGalaxia
+        );
+
+
+    const destino =
+        posicionGranFlor(
+            i
+        );
+
+
+    /*
+       TODAS EMPIEZAN
+       ARRIBA
+    */
+
+    const inicioX =
+
+        destino.x
+
+        +
+
+        (
+            Math.random() -
+            .5
+        ) *
+        20;
+
+
+    const inicioY =
+        42 +
+        Math.random() *
+        55;
+
+
+    const inicioZ =
+
+        destino.z
+
+        +
+
+        (
+            Math.random() -
+            .5
+        ) *
+        20;
+
+
+    flor.position.set(
+
+        inicioX,
+        inicioY,
+        inicioZ
+
+    );
+
+
+    flor.scale.set(
+
+        .001,
+        .001,
+        .001
+
+    );
+
+
+    flor.userData = {
+
+        inicio:
+
+            new THREE.Vector3(
+
+                inicioX,
+                inicioY,
+                inicioZ
+
+            ),
+
+
+        destino:
+
+            new THREE.Vector3(
+
+                destino.x,
+                destino.y,
+                destino.z
+
+            ),
+
+
+        delay:
+
+            Math.random() *
+            CONFIG.duracionConstruccion *
+            .76,
+
+
+        duracion:
+
+            1500 +
+            Math.random() *
+            1600,
+
+
+        escala:
+
+            .62 +
+            Math.random() *
+            1.15,
+
+
+        colocado:
+            false
+
+    };
+
+
+    grupoGalaxia.add(
+        flor
+    );
+
+
+    floresGalaxia.push(
+        flor
+    );
+
+}
+
+
+/* =========================================================
+   LLUVIA PERMANENTE DE FLORES
+========================================================= */
+
+const floresLluvia =
+    [];
+
+
+function reiniciarLluvia(
+    flor,
+    inicial = false
+) {
+
+    flor.position.set(
+
+        (
+            Math.random() -
+            .5
+        ) *
+        72,
+
+        inicial
+
+        ?
+
+        15 +
+        Math.random() *
+        80
+
+        :
+
+        55 +
+        Math.random() *
+        35,
+
+        (
+            Math.random() -
+            .5
+        ) *
+        58
+
+    );
+
+
+    const escala =
+        .42 +
+        Math.random() *
+        .85;
+
+
+    flor.scale.set(
+
+        escala,
+        escala,
+        escala
+
+    );
+
+
+    flor.userData.velocidad =
+        4 +
+        Math.random() *
+        5;
+
+
+    flor.userData.deriva =
+        (
+            Math.random() -
+            .5
+        ) *
+        .8;
+
+
+    flor.userData.oscilacion =
+        Math.random() *
+        Math.PI *
+        2;
+
+}
+
+
+for (
+    let i = 0;
+    i < CONFIG.floresLluvia;
+    i++
+) {
+
+    const flor =
+        new THREE.Sprite(
+            materialLluvia
+        );
+
+
+    reiniciarLluvia(
+        flor,
+        true
+    );
+
+
+    grupoLluvia.add(
+        flor
+    );
+
+
+    floresLluvia.push(
+        flor
+    );
+
+}
+
+
+/* =========================================================
+   MINIJUEGO
+========================================================= */
+
+const floresJuego =
+    [];
+
+
+let puntuacion =
+    0;
+
+
+let juegoActivo =
+    false;
+
+
+let juegoGanado =
+    false;
+
+
+/* Crear flores especiales */
+
+for (
+    let i = 0;
+    i <
+    CONFIG.floresJuegoSimultaneas;
+    i++
+) {
+
+    const flor =
+        new THREE.Sprite(
+            materialJuego
+        );
+
+
+    flor.visible =
+        false;
+
+
+    flor.userData.juego =
+        true;
+
+
+    grupoJuego.add(
+        flor
+    );
+
+
+    floresJuego.push(
+        flor
+    );
+
+}
+
+
+/* Reiniciar flor del juego */
+
+function lanzarFlorJuego(
+    flor
+) {
+
+    if (
+        juegoGanado
+    ) {
+
+        flor.visible =
+            false;
+
+        return;
+
+    }
+
+
+    flor.visible =
+        true;
+
+
+    flor.position.set(
+
+        (
+            Math.random() -
+            .5
+        ) *
+        55,
+
+        46 +
+        Math.random() *
+        25,
+
+        (
+            Math.random() -
+            .5
+        ) *
+        35
+
+    );
+
+
+    flor.userData.velocidad =
+        5 +
+        Math.random() *
+        3;
+
+
+    flor.userData.baseScale =
+        2.4 +
+        Math.random() *
+        .9;
+
+
+    flor.userData.fase =
+        Math.random() *
+        Math.PI *
+        2;
+
+}
+
+
+/* Iniciar juego */
+
+function iniciarJuego() {
+
+    if (
+        juegoActivo ||
+        juegoGanado
+    ) {
+
+        return;
+
+    }
+
+
+    juegoActivo =
+        true;
+
+
+    puntuacion =
+        0;
+
+
+    gameHud.textContent =
+
+        "Atrapa las flores brillantes ✨ · 0 / "
+
+        +
+
+        CONFIG.objetivoJuego;
+
+
+    gameHud.classList.add(
+        "visible"
+    );
+
+
+    floresJuego.forEach(
+
+        (
+            flor,
+            indice
+        ) => {
+
+            setTimeout(
+
+                () => {
+
+                    lanzarFlorJuego(
+                        flor
+                    );
+
+                },
+
+                indice *
+                450
+
+            );
+
+        }
+
+    );
+
+}
+
+
+/* =========================================================
+   EXPLOSIÓN DE FLORES
+========================================================= */
+
+const explosiones =
+    [];
+
+
+function explosionDeFlores(
+    posicion
+) {
+
+    const cantidad =
+        12;
+
+
+    for (
+        let i = 0;
+        i < cantidad;
+        i++
+    ) {
+
+        const material =
+            materialGalaxia.clone();
+
+
+        material.opacity =
+            .90;
+
+
+        const flor =
+            new THREE.Sprite(
+                material
+            );
+
+
+        flor.position.copy(
+            posicion
+        );
+
+
+        const escala =
+            .28 +
+            Math.random() *
+            .45;
+
+
+        flor.scale.set(
+
+            escala,
+            escala,
+            escala
+
+        );
+
+
+        flor.userData.velocidad =
+            new THREE.Vector3(
+
+                (
+                    Math.random() -
+                    .5
+                ) *
+                9,
+
+                (
+                    Math.random() -
+                    .1
+                ) *
+                7,
+
+                (
+                    Math.random() -
+                    .5
+                ) *
+                9
+
+            );
+
+
+        flor.userData.vida =
+            1;
+
+
+        grupoExplosiones.add(
+            flor
+        );
+
+
+        explosiones.push(
+            flor
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ATRAPAR FLOR
+========================================================= */
+
+function atraparFlor(
+    flor
+) {
+
+    if (
+        !juegoActivo ||
+        !flor.visible
+    ) {
+
+        return;
+
+    }
+
+
+    const posicion =
+        flor.position.clone();
+
+
+    flor.visible =
+        false;
+
+
+    explosionDeFlores(
+        posicion
+    );
+
+
+    puntuacion++;
+
+
+    if (
+        puntuacion >=
+        CONFIG.objetivoJuego
+    ) {
+
+        juegoActivo =
+            false;
+
+
+        juegoGanado =
+            true;
+
+
+        floresJuego.forEach(
+            f =>
+            f.visible = false
+        );
+
+
+        gameHud.textContent =
+            "✨ ¡Lo lograste! Toca la flor grande del centro 🌻";
+
+
+        gameHud.classList.add(
+            "completado"
+        );
+
+
+        return;
+
+    }
+
+
+    gameHud.textContent =
+
+        "Atrapa las flores brillantes ✨ · "
+
+        +
+
+        puntuacion
+
+        +
+
+        " / "
+
+        +
+
+        CONFIG.objetivoJuego;
+
+
+    setTimeout(
+
+        () => {
+
+            if (
+                !juegoGanado
+            ) {
+
+                lanzarFlorJuego(
+                    flor
+                );
+
+            }
+
+        },
+
+        350
+
+        +
+
+        Math.random() *
+        450
+
+    );
+
+}
+
+
+/* =========================================================
+   RAYCAST PARA LOS TOQUES
+========================================================= */
+
+const raycaster =
+    new THREE.Raycaster();
+
+
+const puntero =
+    new THREE.Vector2();
+
+
+function actualizarPuntero(
+    evento
+) {
+
+    const rect =
+        renderer.domElement
+        .getBoundingClientRect();
+
+
+    puntero.x =
+
+        (
+            (
+                evento.clientX -
+                rect.left
+            ) /
+            rect.width
+        ) *
+        2 -
+        1;
+
+
+    puntero.y =
+
+        -
+
+        (
+            (
+                evento.clientY -
+                rect.top
+            ) /
+            rect.height
+        ) *
+        2 +
+        1;
+
+}
+
+
+/* =========================================================
+   TOCAR ESCENA
+========================================================= */
+
+renderer.domElement.addEventListener(
+
+    "pointerdown",
+
+    evento => {
+
+        actualizarPuntero(
+            evento
+        );
+
+
+        raycaster.setFromCamera(
+
+            puntero,
+
+            camara
+
+        );
+
+
+        /*
+           PRIMERO:
+           MINIJUEGO
+        */
+
+        if (
+            juegoActivo
+        ) {
+
+            const objetivos =
+
+                floresJuego.filter(
+
+                    flor =>
+                    flor.visible
+
+                );
+
+
+            const impactos =
+
+                raycaster.intersectObjects(
+                    objetivos,
+                    false
+                );
+
+
+            if (
+                impactos.length >
+                0
+            ) {
+
+                atraparFlor(
+                    impactos[0].object
+                );
+
+
+                return;
+
+            }
+
+        }
+
+
+        /*
+           SEGUNDO:
+           SI GANÓ,
+           TOCAR FLOR CENTRAL
+        */
+
+        if (
+            juegoGanado
+        ) {
+
+            const impactoCentro =
+
+                raycaster.intersectObject(
+
+                    florCentral,
+
+                    false
+
+                );
+
+
+            if (
+                impactoCentro.length >
+                0
+            ) {
+
+                mostrarDedicatoria();
+
+            }
+
+        }
+
+    }
+
+);
+
+
+/* =========================================================
+   DEDICATORIA
+========================================================= */
+
+function mostrarDedicatoria() {
+
+    dedicatoria.classList.add(
+        "visible"
+    );
+
+
+    explosionDeFlores(
+
+        new THREE.Vector3(
+            0,
+            3,
+            0
+        )
+
+    );
+
+}
+
+
+function ocultarDedicatoria() {
+
+    dedicatoria.classList.remove(
+        "visible"
+    );
+
+}
+
+
+cerrarDedicatoria.addEventListener(
+
+    "click",
+
+    ocultarDedicatoria
+
+);
+
+
+dedicatoria.addEventListener(
+
+    "click",
+
+    evento => {
+
+        if (
+            evento.target ===
+            dedicatoria
+        ) {
+
+            ocultarDedicatoria();
+
+        }
+
+    }
+
+);
+
+
+/* =========================================================
+   ESTADO PRINCIPAL
+========================================================= */
+
+const estado = {
+
+    iniciado:
+        false,
+
+    tiempoInicio:
+        0,
+
+    construccionTerminada:
+        false
+
+};
+
+
+/* =========================================================
+   EMPEZAR EXPERIENCIA
+========================================================= */
+
+function empezar() {
+
+    if (
+        estado.iniciado
+    ) {
+
+        return;
+
+    }
+
+
+    estado.iniciado =
+        true;
+
+
+    estado.tiempoInicio =
+        performance.now();
+
+
+    inicio.classList.add(
+        "oculto"
+    );
+
+}
+
+
+/* Pointerdown funciona
+   tanto en móvil
+   como PC */
+
+inicio.addEventListener(
+
+    "pointerdown",
+
+    empezar
+
+);
+
+
+/* =========================================================
+   RELOJ
+========================================================= */
+
+const reloj =
+    new THREE.Clock();
+
+
+/* =========================================================
+   ANIMAR LLUVIA
+========================================================= */
+
+function animarLluvia(
+    delta,
+    tiempo
+) {
+
+    if (
+        !estado.iniciado
+    ) {
+
+        return;
+
+    }
+
+
+    floresLluvia.forEach(
+        flor => {
+
+            flor.position.y -=
+
+                flor.userData.velocidad
+                *
+                delta;
+
+
+            flor.position.x +=
+
+                Math.sin(
+
+                    tiempo *
+
+                    .7
+
+                    +
+
+                    flor.userData.oscilacion
+
+                )
+
+                *
+
+                flor.userData.deriva
+
+                *
+
+                delta;
+
+
+            if (
+                flor.position.y <
+                -8
+            ) {
+
+                reiniciarLluvia(
+                    flor
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ANIMAR JUEGO
+========================================================= */
+
+function animarJuego(
+    delta,
+    tiempo
+) {
+
+    if (
+        !juegoActivo
+    ) {
+
+        return;
+
+    }
+
+
+    floresJuego.forEach(
+        flor => {
+
+            if (
+                !flor.visible
+            ) {
+
+                return;
+
+            }
+
+
+            flor.position.y -=
+
+                flor.userData.velocidad
+                *
+                delta;
+
+
+            flor.position.x +=
+
+                Math.sin(
+
+                    tiempo *
+                    2
+
+                    +
+
+                    flor.userData.fase
+
+                )
+
+                *
+                .35
+                *
+                delta;
+
+
+            const pulso =
+
+                flor.userData.baseScale
+
+                *
+
+                (
+                    1 +
+
+                    Math.sin(
+
+                        tiempo *
+                        5
+
+                        +
+
+                        flor.userData.fase
+
+                    )
+
+                    *
+                    .12
+                );
+
+
+            flor.scale.set(
+
+                pulso,
+                pulso,
+                pulso
+
+            );
+
+
+            /*
+               SI NO LA ATRAPA
+               VUELVE ARRIBA
+            */
+
+            if (
+                flor.position.y <
+                -6
+            ) {
+
+                lanzarFlorJuego(
+                    flor
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ANIMAR EXPLOSIONES
+========================================================= */
+
+function animarExplosiones(
+    delta
+) {
+
+    for (
+        let i =
+            explosiones.length - 1;
+
+        i >= 0;
+
+        i--
+    ) {
+
+        const flor =
+            explosiones[i];
+
+
+        flor.position.addScaledVector(
+
+            flor.userData.velocidad,
+
+            delta
+
+        );
+
+
+        flor.userData.velocidad.y -=
+
+            3 *
+            delta;
+
+
+        flor.userData.vida -=
+
+            delta *
+            1.4;
+
+
+        const escala =
+
+            Math.max(
+
+                .001,
+
+                flor.userData.vida
+
+            );
+
+
+        flor.scale.multiplyScalar(
+
+            .97
+
+        );
+
+
+        flor.material.opacity =
+
+            Math.max(
+
+                0,
+
+                flor.userData.vida
+
+            );
+
+
+        if (
+            flor.userData.vida <=
+            0
+        ) {
+
+            grupoExplosiones.remove(
+                flor
+            );
+
+
+            flor.material.dispose();
+
+
+            explosiones.splice(
+                i,
+                1
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   ANIMACIÓN PRINCIPAL
+========================================================= */
+
+function animar() {
+
+    requestAnimationFrame(
+        animar
+    );
+
+
+    const delta =
+        Math.min(
+
+            reloj.getDelta(),
+
+            .04
+
+        );
+
+
+    const tiempo =
+        reloj.elapsedTime;
+
+
+    /*
+       ANTES DE TOCAR
+    */
+
+    if (
+        !estado.iniciado
+    ) {
+
+        camara.position.lerp(
+
+            camaraInicio,
+
+            .05
+
+        );
+
+
+        camara.lookAt(
+            0,
+            0,
+            0
+        );
+
+
+        renderer.render(
+
+            escena,
+
+            camara
+
+        );
+
+
+        return;
+
+    }
+
+
+    /* ===========================================
+       TIEMPO DESDE EL TOQUE
+    =========================================== */
+
+    const transcurrido =
+
+        performance.now()
+
+        -
+
+        estado.tiempoInicio;
+
+
+    const progresoGeneral =
+
+        clamp(
+
+            transcurrido /
+
+            CONFIG.duracionConstruccion,
+
+            0,
+
+            1
+
+        );
+
+
+    const progresoCamara =
+
+        easeInOutCubic(
+            progresoGeneral
+        );
+
+
+    /* ===========================================
+       CÁMARA CINEMATOGRÁFICA
+    =========================================== */
+
+    if (
+        !estado.construccionTerminada
+    ) {
+
+        camara.position.lerpVectors(
+
+            camaraInicio,
+
+            camaraFinal,
+
+            progresoCamara
+
+        );
+
+
+        camara.lookAt(
+
+            0,
+            0,
+            0
+
+        );
+
+    }
+
+
+    /* ===========================================
+       FLOR CENTRAL FLORECE
+    =========================================== */
+
+    const aperturaCentro =
+
+        easeOutCubic(
+
+            clamp(
+
+                transcurrido /
+                2600,
+
+                0,
+
+                1
+
+            )
+
+        );
+
+
+    const escalaCentro =
+
+        2.5
+
+        +
+
+        (
+            CONFIG.escalaCentro -
+            2.5
+        )
+
+        *
+
+        aperturaCentro;
+
+
+    /*
+       Si ganó,
+       la flor central
+       palpita más
+    */
+
+    const intensidadLatido =
+
+        juegoGanado
+        ?
+        .09
+        :
+        .025;
+
+
+    const latido =
+
+        1
+
+        +
+
+        Math.sin(
+
+            tiempo *
+            (
+                juegoGanado
+                ?
+                4
+                :
+                2
+            )
+
+        )
+
+        *
+        intensidadLatido;
+
+
+    florCentral.scale.set(
+
+        escalaCentro *
+        latido,
+
+        escalaCentro *
+        latido,
+
+        escalaCentro *
+        latido
+
+    );
+
+
+    /* ===========================================
+       CONSTRUIR LA GRAN FLOR
+    =========================================== */
+
+    if (
+        !estado.construccionTerminada
+    ) {
+
+        floresGalaxia.forEach(
+
+            flor => {
+
+                const t =
+
+                    clamp(
+
+                        (
+                            transcurrido
+
+                            -
+
+                            flor.userData.delay
+                        )
+
+                        /
+
+                        flor.userData.duracion,
+
+                        0,
+
+                        1
+
+                    );
+
+
+                if (
+                    t <=
+                    0
+                ) {
+
+                    return;
+
+                }
+
+
+                const suave =
+
+                    easeOutCubic(
+                        t
+                    );
+
+
+                flor.position.lerpVectors(
+
+                    flor.userData.inicio,
+
+                    flor.userData.destino,
+
+                    suave
+
+                );
+
+
+                /*
+                   pequeño arco
+                   al caer
+                */
+
+                flor.position.y +=
+
+                    Math.sin(
+
+                        Math.PI *
+                        t
+
+                    )
+
+                    *
+                    2;
+
+
+                const escala =
+
+                    flor.userData.escala
+
+                    *
+
+                    suave;
+
+
+                flor.scale.set(
+
+                    escala,
+                    escala,
+                    escala
+
+                );
+
+            }
+
+        );
+
+    }
+
+
+    /* ===========================================
+       MOVIMIENTO SUAVE GALAXIA
+    =========================================== */
+
+    grupoGalaxia.rotation.y +=
+
+        .0007;
+
+
+    /* ===========================================
+       LLUVIA
+    =========================================== */
+
+    animarLluvia(
+        delta,
+        tiempo
+    );
+
+
+    /* ===========================================
+       TEXTOS
+    =========================================== */
+
+    if (
+        transcurrido >
+        1300
+    ) {
+
+        titulo.classList.add(
+            "visible"
+        );
+
+    }
+
+
+    if (
+        transcurrido >
+        5200
+    ) {
+
+        pie.classList.add(
+            "visible"
+        );
+
+    }
+
+
+    /* ===========================================
+       TERMINÓ CONSTRUCCIÓN
+    =========================================== */
+
+    if (
+
+        transcurrido >
+
+        CONFIG.duracionConstruccion
+
+        +
+
+        2200
+
+        &&
+
+        !estado.construccionTerminada
+
+    ) {
+
+        estado.construccionTerminada =
+            true;
+
+
+        controles.enabled =
+            true;
+
+
+        controles.autoRotate =
+            true;
+
+
+        controles.autoRotateSpeed =
+            .20;
+
+
+        iniciarJuego();
+
+    }
+
+
+    /* ===========================================
+       MINIJUEGO
+    =========================================== */
+
+    animarJuego(
+
+        delta,
+
+        tiempo
+
+    );
+
+
+    /* ===========================================
+       EXPLOSIONES
+    =========================================== */
+
+    animarExplosiones(
+        delta
+    );
+
+
+    /* ===========================================
+       CONTROLES
+    =========================================== */
+
+    controles.update();
+
+
+    /* ===========================================
+       RENDER
+    =========================================== */
+
+    renderer.render(
+
+        escena,
+
+        camara
+
+    );
+
+}
+
+
+animar();
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+window.addEventListener(
+
+    "resize",
+
+    () => {
+
+        camara.aspect =
+
+            window.innerWidth /
+
+            window.innerHeight;
+
+
+        camara.updateProjectionMatrix();
+
+
+        renderer.setSize(
+
+            window.innerWidth,
+
+            window.innerHeight
+
+        );
+
+    }
+
+);
+
+</script>
+
 </body>
 </html>
