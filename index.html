@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz cumpleaños VIVI</title>
+    
+    <!-- Fuente Comic que SÍ funciona en iPhone -->
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fdf6e3;
+            font-family: 'Comic Neue', "Comic Sans MS", cursive, sans-serif;
+            /* QUITAMOS overflow: hidden para permitir scroll */
+            min-height: 100vh;
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            margin-top: 30px;
+            color: #d2691e;
+        }
+        .mensaje {
+            text-align: center;
+            font-size: 1.5em;
+            margin: 40px;
+            color: #333;
+        }
+        .imagen-final {
+            display: block;
+            margin: 50px auto;
+            width: 300px;
+            height: auto;
+            border-radius: 30px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+            opacity: 0.95;
+        }
+        .girasol {
+            position: fixed;
+            top: -100px;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://i.imgur.com/4h0d7ye.png');
+            background-size: cover;
+            animation: caer linear infinite;
+            pointer-events: none; /* para que no bloquee el scroll */
+        }
+        @keyframes caer {
+            0%   { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>♡ Feliz Cumpleaños Vivi ♡</h1>
+    <div class="mensaje">
+        <p>Vivi… más vale tarde que nunca jaja</p>
+        <p>No sé por dónde empezar jaj, espero lo haya pasado bonito en su cumple, a veces soy muy descuidado y olvido las fecha importantes y que fecha más importante que su cumple, quería darle las gracias por ser como es con migo y con los demás, nunca había conocido alguien así, me siento muy afortunado haber coincidido con ud y tener la suerte de llamarla mi AMIGA, espero que nos llevemos muchos años o hasta que el universo o Dios nos permita conocernos y si talvez en el futuro ya no hablamos o talvez la vida nos lleve por caminos distintos, quiero que sepa que podrá contar con migo siempre, hablemos mucho o poco ahí estaré, el contar con ud como amiga me tranquiliza mucho 😊
+        <p>Sin mas que añadir, escribiendo esto con una lagrimita :´)</p> 
+        <p>MUCHAS GRACIAS VIVI </p>
+        <p>Feliz cumpleaños…..</p>
+    </div>
+    <img src="https://i.imgur.com/OFi8BKv.jpeg" class="imagen-final" alt="Imagen final">
+
+    <script>
+        function crearGirasoles() {
+            const cantidad = 30;
+            for (let i = 0; i < cantidad; i++) {
+                let g = document.createElement('div');
+                g.className = 'girasol';
+                g.style.left = Math.random() * 100 + 'vw';
+                g.style.animationDuration = (12 + Math.random() * 8) + 's';
+                g.style.animationDelay = Math.random() * 10 + 's';
+                document.body.appendChild(g);
+            }
+        }
+
+        window.addEventListener('load', crearGirasoles);
+    </script>
+</body>
+</html>
