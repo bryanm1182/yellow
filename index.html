@@ -22,6 +22,7 @@
       overflow: hidden;
       background: #000;
       font-family: Arial, Helvetica, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     #universo {
@@ -35,66 +36,72 @@
       display: block;
     }
 
-    /* ===============================
-       TEXTOS
-    =============================== */
     .titulo {
       position: fixed;
-      top: 28px;
+      top: 26px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(-18px);
       z-index: 12;
       width: 92%;
       text-align: center;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 1.2s ease;
+      filter: blur(8px);
+      transition:
+        opacity 1.2s ease,
+        transform 1.2s ease,
+        filter 1.2s ease;
     }
 
     .titulo.visible {
       opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      filter: blur(0);
     }
 
     .titulo h1 {
-      font-size: clamp(1.7rem, 4.5vw, 3.8rem);
+      font-size: clamp(1.8rem, 4.5vw, 3.9rem);
       font-weight: 700;
-      color: #d8a300;
-      text-shadow:
-        0 0 8px rgba(216, 163, 0, 0.35),
-        0 0 16px rgba(216, 163, 0, 0.18);
+      color: #d39b10;
       letter-spacing: 0.4px;
+      text-shadow:
+        0 0 8px rgba(211, 155, 16, 0.35),
+        0 0 18px rgba(211, 155, 16, 0.18);
     }
 
     .pie {
       position: fixed;
       left: 50%;
-      bottom: 24px;
-      transform: translateX(-50%);
+      bottom: 22px;
+      transform: translateX(-50%) translateY(18px);
       z-index: 12;
       width: 92%;
       text-align: center;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 1.2s ease;
+      filter: blur(8px);
+      transition:
+        opacity 1.2s ease,
+        transform 1.2s ease,
+        filter 1.2s ease;
     }
 
     .pie.visible {
       opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      filter: blur(0);
     }
 
     .pie p {
       font-size: clamp(0.95rem, 1.8vw, 1.25rem);
       font-weight: 700;
-      color: #c59a1a;
+      color: #b8860b;
       letter-spacing: 2px;
       text-shadow:
-        0 0 6px rgba(197, 154, 26, 0.25),
-        0 0 12px rgba(197, 154, 26, 0.12);
+        0 0 6px rgba(184, 134, 11, 0.30),
+        0 0 12px rgba(184, 134, 11, 0.12);
     }
 
-    /* ===============================
-       PANTALLA INICIAL
-    =============================== */
     .inicio {
       position: fixed;
       inset: 0;
@@ -104,15 +111,18 @@
       justify-content: center;
       background:
         radial-gradient(circle at center,
-          rgba(35, 35, 35, 0.30) 0%,
-          rgba(0, 0, 0, 0.82) 45%,
-          rgba(0, 0, 0, 0.96) 100%);
+          rgba(40, 40, 40, 0.20) 0%,
+          rgba(0, 0, 0, 0.78) 48%,
+          rgba(0, 0, 0, 0.97) 100%);
       cursor: pointer;
-      transition: opacity 0.9s ease;
+      transition:
+        opacity 0.9s ease,
+        visibility 0.9s ease;
     }
 
     .inicio.ocultar {
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
     }
 
@@ -125,48 +135,116 @@
     }
 
     .flor-inicial {
-      width: clamp(110px, 18vw, 180px);
-      height: clamp(110px, 18vw, 180px);
+      width: clamp(120px, 18vw, 190px);
+      height: clamp(120px, 18vw, 190px);
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
-      filter: drop-shadow(0 0 16px rgba(255, 210, 50, 0.45));
-      animation: palpitar 1.7s ease-in-out infinite;
+      filter: drop-shadow(0 0 18px rgba(255, 212, 59, 0.40));
+      animation: florecer 2.3s ease-in-out infinite;
     }
 
     .toque {
       font-size: clamp(1rem, 2.2vw, 1.35rem);
-      color: #d8a300;
+      color: #d39b10;
       font-weight: 700;
       letter-spacing: 1px;
       text-shadow:
-        0 0 7px rgba(216, 163, 0, 0.28),
-        0 0 12px rgba(216, 163, 0, 0.14);
-      animation: parpadeo 1.6s ease-in-out infinite;
+        0 0 7px rgba(211, 155, 16, 0.30),
+        0 0 12px rgba(211, 155, 16, 0.14);
+      animation: parpadeo 1.7s ease-in-out infinite;
     }
 
-    @keyframes palpitar {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.12); }
-      100% { transform: scale(1); }
+    .dedicatoria {
+      position: fixed;
+      inset: 0;
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(0, 0, 0, 0.68);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
     }
 
-    @keyframes parpadeo {
-      0%   { opacity: 0.5; }
-      50%  { opacity: 1; }
-      100% { opacity: 0.5; }
+    .dedicatoria.visible {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    .viñeta {
+    .dedicatoria .tarjeta {
+      width: min(92vw, 680px);
+      border: 1px solid rgba(212, 155, 16, 0.28);
+      border-radius: 22px;
+      padding: 26px 22px;
+      background:
+        linear-gradient(180deg,
+          rgba(28, 22, 6, 0.96) 0%,
+          rgba(10, 10, 10, 0.96) 100%);
+      box-shadow:
+        0 0 28px rgba(212, 155, 16, 0.12),
+        inset 0 0 18px rgba(255, 214, 80, 0.05);
+      text-align: center;
+      transform: scale(0.92) translateY(12px);
+      transition: transform 0.45s ease;
+    }
+
+    .dedicatoria.visible .tarjeta {
+      transform: scale(1) translateY(0);
+    }
+
+    .dedicatoria p {
+      color: #f1d27b;
+      font-size: clamp(1rem, 2.2vw, 1.3rem);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .dedicatoria span {
+      display: block;
+      color: #b8860b;
+      font-size: 0.92rem;
+      opacity: 0.9;
+      letter-spacing: 1px;
+    }
+
+    .vineta {
       position: fixed;
       inset: 0;
       z-index: 5;
       pointer-events: none;
       background:
         radial-gradient(circle at center,
-          transparent 52%,
-          rgba(0, 0, 0, 0.10) 72%,
-          rgba(0, 0, 0, 0.45) 100%);
+          transparent 54%,
+          rgba(0, 0, 0, 0.10) 74%,
+          rgba(0, 0, 0, 0.48) 100%);
+    }
+
+    @keyframes florecer {
+      0% {
+        transform: scale(0.72) rotate(-10deg);
+        filter: drop-shadow(0 0 10px rgba(255, 212, 59, 0.18));
+      }
+      35% {
+        transform: scale(1.02) rotate(-4deg);
+        filter: drop-shadow(0 0 18px rgba(255, 212, 59, 0.35));
+      }
+      60% {
+        transform: scale(1.12) rotate(0deg);
+        filter: drop-shadow(0 0 24px rgba(255, 212, 59, 0.45));
+      }
+      100% {
+        transform: scale(1) rotate(4deg);
+        filter: drop-shadow(0 0 18px rgba(255, 212, 59, 0.32));
+      }
+    }
+
+    @keyframes parpadeo {
+      0% { opacity: 0.48; }
+      50% { opacity: 1; }
+      100% { opacity: 0.48; }
     }
   </style>
 </head>
@@ -188,7 +266,14 @@
     </div>
   </div>
 
-  <div class="viñeta"></div>
+  <div class="dedicatoria" id="dedicatoria">
+    <div class="tarjeta">
+      <p id="textoDedicatoria"></p>
+      <span>Toque para cerrar</span>
+    </div>
+  </div>
+
+  <div class="vineta"></div>
 
   <script type="importmap">
     {
@@ -203,14 +288,35 @@
     import * as THREE from "three";
     import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
+    /* ===========================================
+       CONFIGURACIÓN EDITABLE
+    =========================================== */
+    const TEXTO_DEDICATORIA =
+      "Gracias por tu amistad, por tu esencia y por la bonita persona que eres. 🌻";
+
+    const TOTAL_FLORES_GALAXIA = window.innerWidth < 700 ? 220 : 340;
+    const TOTAL_FLORES_LLUVIA = window.innerWidth < 700 ? 26 : 42;
+    const PETALOS_GRAN_FLOR = 8;
+    const DURACION_CONSTRUCCION = 7800;
+
+    /* ===========================================
+       REFERENCIAS DOM
+    =========================================== */
     const contenedor = document.getElementById("universo");
     const inicio = document.getElementById("inicio");
     const florInicialDOM = document.getElementById("florInicial");
     const titulo = document.getElementById("titulo");
     const pie = document.getElementById("pie");
+    const dedicatoria = document.getElementById("dedicatoria");
+    const textoDedicatoria = document.getElementById("textoDedicatoria");
 
+    textoDedicatoria.textContent = TEXTO_DEDICATORIA;
+
+    /* ===========================================
+       ESCENA
+    =========================================== */
     const escena = new THREE.Scene();
-    escena.fog = new THREE.FogExp2(0x000000, 0.0035);
+    escena.fog = new THREE.FogExp2(0x000000, 0.0032);
 
     const camara = new THREE.PerspectiveCamera(
       55,
@@ -218,12 +324,14 @@
       0.1,
       1000
     );
-    camara.position.set(0, 0, 16);
+
+    camara.position.set(0, 5, 17);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: false
     });
+
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -235,14 +343,36 @@
     controles.dampingFactor = 0.05;
     controles.enablePan = false;
     controles.enableZoom = true;
-    controles.minDistance = 18;
-    controles.maxDistance = 90;
+    controles.minDistance = 20;
+    controles.maxDistance = 92;
     controles.enabled = false;
     controles.autoRotate = false;
+    controles.minPolarAngle = 0.35;
+    controles.maxPolarAngle = 1.35;
     controles.target.set(0, 0, 0);
 
     const universo = new THREE.Group();
     escena.add(universo);
+
+    /* ===========================================
+       TEXTURAS
+    =========================================== */
+    function crearTexturaEstrella() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 128;
+      canvas.height = 128;
+      const ctx = canvas.getContext("2d");
+
+      const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      grad.addColorStop(0, "rgba(255,255,255,1)");
+      grad.addColorStop(0.25, "rgba(255,225,120,0.9)");
+      grad.addColorStop(1, "rgba(255,200,0,0)");
+
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 128, 128);
+
+      return new THREE.CanvasTexture(canvas);
+    }
 
     function crearCanvasFlor() {
       const canvas = document.createElement("canvas");
@@ -252,39 +382,39 @@
 
       ctx.translate(128, 128);
 
-      for (let i = 0; i < 14; i++) {
+      for (let i = 0; i < 16; i++) {
         ctx.save();
-        ctx.rotate((i / 14) * Math.PI * 2);
+        ctx.rotate((i / 16) * Math.PI * 2);
 
-        const grad = ctx.createRadialGradient(0, -50, 5, 0, -50, 40);
-        grad.addColorStop(0, "#fff59d");
-        grad.addColorStop(0.45, "#ffd43b");
-        grad.addColorStop(1, "#d8a300");
+        const grad = ctx.createRadialGradient(0, -54, 5, 0, -54, 42);
+        grad.addColorStop(0, "#fff7b3");
+        grad.addColorStop(0.40, "#ffd84e");
+        grad.addColorStop(1, "#c9980c");
 
         ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.ellipse(0, -50, 16, 40, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, -54, 17, 42, 0, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.restore();
       }
 
-      const centro = ctx.createRadialGradient(0, 0, 4, 0, 0, 30);
-      centro.addColorStop(0, "#7a4a00");
+      const centro = ctx.createRadialGradient(0, 0, 4, 0, 0, 31);
+      centro.addColorStop(0, "#8a5900");
       centro.addColorStop(0.55, "#5c3400");
-      centro.addColorStop(1, "#2b1600");
+      centro.addColorStop(1, "#2a1400");
 
       ctx.fillStyle = centro;
       ctx.beginPath();
       ctx.arc(0, 0, 30, 0, Math.PI * 2);
       ctx.fill();
 
-      for (let i = 0; i < 60; i++) {
-        const ang = Math.random() * Math.PI * 2;
+      for (let i = 0; i < 70; i++) {
+        const a = Math.random() * Math.PI * 2;
         const r = Math.random() * 22;
-        ctx.fillStyle = "rgba(255, 194, 0, 0.75)";
+        ctx.fillStyle = "rgba(255, 198, 40, 0.72)";
         ctx.beginPath();
-        ctx.arc(Math.cos(ang) * r, Math.sin(ang) * r, 1 + Math.random() * 1.5, 0, Math.PI * 2);
+        ctx.arc(Math.cos(a) * r, Math.sin(a) * r, 1 + Math.random() * 1.4, 0, Math.PI * 2);
         ctx.fill();
       }
 
@@ -297,99 +427,234 @@
     const texturaFlor = new THREE.CanvasTexture(canvasFlor);
     texturaFlor.colorSpace = THREE.SRGBColorSpace;
 
+    const texturaEstrella = crearTexturaEstrella();
+    texturaEstrella.colorSpace = THREE.SRGBColorSpace;
+
+    /* ===========================================
+       ESTRELLAS DE FONDO
+    =========================================== */
+    function crearFondoEstrellas() {
+      const cantidad = 520;
+      const posiciones = new Float32Array(cantidad * 3);
+
+      for (let i = 0; i < cantidad; i++) {
+        const radio = 60 + Math.random() * 220;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+
+        posiciones[i * 3] = radio * Math.sin(phi) * Math.cos(theta);
+        posiciones[i * 3 + 1] = radio * Math.cos(phi);
+        posiciones[i * 3 + 2] = radio * Math.sin(phi) * Math.sin(theta);
+      }
+
+      const geometria = new THREE.BufferGeometry();
+      geometria.setAttribute("position", new THREE.BufferAttribute(posiciones, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 0.65,
+        map: texturaEstrella,
+        transparent: true,
+        opacity: 0.55,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        color: 0xf6d776
+      });
+
+      const puntos = new THREE.Points(geometria, material);
+      escena.add(puntos);
+      return puntos;
+    }
+
+    const estrellasFondo = crearFondoEstrellas();
+
+    /* ===========================================
+       GRUPOS
+    =========================================== */
     const grupoGalaxia = new THREE.Group();
     universo.add(grupoGalaxia);
 
-    const materialCentral = new THREE.SpriteMaterial({
-      map: texturaFlor,
-      transparent: true,
-      opacity: 1,
-      depthWrite: false
-    });
+    const grupoLluvia = new THREE.Group();
+    universo.add(grupoLluvia);
 
-    const florCentral = new THREE.Sprite(materialCentral);
-    florCentral.scale.set(5.5, 5.5, 5.5);
+    /* ===========================================
+       FLOR CENTRAL GRANDE
+    =========================================== */
+    const florCentral = new THREE.Sprite(
+      new THREE.SpriteMaterial({
+        map: texturaFlor,
+        transparent: true,
+        opacity: 1,
+        depthWrite: false
+      })
+    );
+
+    florCentral.scale.set(8.8, 8.8, 8.8);
     florCentral.position.set(0, 0, 0);
     grupoGalaxia.add(florCentral);
 
-    const flores = [];
-    const totalFlores = window.innerWidth < 700 ? 95 : 145;
-    const brazos = 5;
-    const porBrazo = Math.ceil(totalFlores / brazos);
+    /* ===========================================
+       GALAXIA EN FORMA DE FLOR GRANDE
+    =========================================== */
+    const floresGalaxia = [];
 
-    for (let brazo = 0; brazo < brazos; brazo++) {
-      for (let i = 0; i < porBrazo; i++) {
-        if (flores.length >= totalFlores) break;
+    function posicionObjetivoGranFlor(indice, total) {
+      const theta = (indice / total) * Math.PI * 2 * 1.08 + Math.random() * 0.35;
 
-        const material = new THREE.SpriteMaterial({
+      const petaloBase =
+        0.34 +
+        0.66 * Math.abs(Math.sin((PETALOS_GRAN_FLOR / 2) * theta));
+
+      const radioMax = 34;
+      const radio =
+        petaloBase *
+        radioMax *
+        (0.22 + 0.78 * Math.pow(Math.random(), 0.72));
+
+      const x = Math.cos(theta) * radio + (Math.random() - 0.5) * 1.25;
+      const z = Math.sin(theta) * radio + (Math.random() - 0.5) * 1.25;
+      const y = (Math.random() - 0.5) * 1.8;
+
+      return { x, y, z };
+    }
+
+    for (let i = 0; i < TOTAL_FLORES_GALAXIA; i++) {
+      const sprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
           map: texturaFlor,
           transparent: true,
           opacity: 0,
           depthWrite: false
-        });
+        })
+      );
 
-        const flor = new THREE.Sprite(material);
+      const destino = posicionObjetivoGranFlor(i, TOTAL_FLORES_GALAXIA);
 
-        const t = i / (porBrazo - 1 || 1);
-        const radio = 7 + t * 34 + Math.random() * 1.4;
-        const baseAngle = (brazo / brazos) * Math.PI * 2;
-        const spiral = radio * 0.5;
-        const ruido = (Math.random() - 0.5) * 0.5;
-        const angulo = baseAngle + spiral + ruido;
+      const startX = (Math.random() - 0.5) * 24;
+      const startY = 28 + Math.random() * 28;
+      const startZ = (Math.random() - 0.5) * 24;
 
-        flor.userData = {
-          radio,
-          angulo,
-          baseY: (Math.random() - 0.5) * 2.2,
-          fase: Math.random() * Math.PI * 2,
-          targetScale: 0.9 + Math.random() * 1.6,
-          velocidad: 0.00055 + Math.random() * 0.00045,
-          revelada: false
-        };
+      sprite.position.set(startX, startY, startZ);
+      sprite.scale.set(0.001, 0.001, 0.001);
 
-        flor.position.set(
-          Math.cos(angulo) * radio,
-          flor.userData.baseY,
-          Math.sin(angulo) * radio
-        );
+      sprite.userData = {
+        target: new THREE.Vector3(destino.x, destino.y, destino.z),
+        start: new THREE.Vector3(startX, startY, startZ),
+        progress: 0,
+        revelada: false,
+        oscilacion: Math.random() * Math.PI * 2,
+        baseY: destino.y,
+        targetScale: 0.78 + Math.random() * 1.32,
+        giro: Math.random() * Math.PI * 2
+      };
 
-        flor.scale.set(0.001, 0.001, 0.001);
-
-        grupoGalaxia.add(flor);
-        flores.push(flor);
-      }
+      grupoGalaxia.add(sprite);
+      floresGalaxia.push(sprite);
     }
 
+    /* ===========================================
+       LLUVIA SUAVE CONTINUA
+    =========================================== */
+    const floresLluvia = [];
+
+    function reiniciarFlorLluvia(flor, arriba = true) {
+      const radio = 6 + Math.random() * 32;
+      const angulo = Math.random() * Math.PI * 2;
+
+      flor.position.set(
+        Math.cos(angulo) * radio + (Math.random() - 0.5) * 10,
+        arriba ? 30 + Math.random() * 18 : 10 + Math.random() * 18,
+        Math.sin(angulo) * radio + (Math.random() - 0.5) * 10
+      );
+
+      const escala = 0.45 + Math.random() * 0.9;
+      flor.scale.set(escala, escala, escala);
+
+      flor.material.opacity = 0.12 + Math.random() * 0.35;
+
+      flor.userData.velocidad = 0.065 + Math.random() * 0.08;
+      flor.userData.deriva = (Math.random() - 0.5) * 0.015;
+    }
+
+    for (let i = 0; i < TOTAL_FLORES_LLUVIA; i++) {
+      const flor = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+          map: texturaFlor,
+          transparent: true,
+          opacity: 0,
+          depthWrite: false
+        })
+      );
+
+      flor.userData = {
+        velocidad: 0.08,
+        deriva: 0
+      };
+
+      reiniciarFlorLluvia(flor, true);
+      grupoLluvia.add(flor);
+      floresLluvia.push(flor);
+    }
+
+    /* ===========================================
+       ESTADO
+    =========================================== */
     const estado = {
       iniciado: false,
       tiempoInicio: 0,
-      duracionConstruccion: 6500,
-      completo: false
+      completo: false,
+      dedicatoriaVisible: false,
+      ultimoInicioClick: 0
     };
 
-    function clamp(valor, min, max) {
-      return Math.min(Math.max(valor, min), max);
+    function clamp(v, min, max) {
+      return Math.min(Math.max(v, min), max);
     }
 
     function easeOutCubic(x) {
       return 1 - Math.pow(1 - x, 3);
     }
 
-    function iniciarAnimacion() {
+    function easeInOutCubic(x) {
+      return x < 0.5
+        ? 4 * x * x * x
+        : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    }
+
+    function iniciarExperiencia() {
       if (estado.iniciado) return;
 
       estado.iniciado = true;
       estado.tiempoInicio = performance.now();
+      estado.ultimoInicioClick = Date.now();
 
       inicio.classList.add("ocultar");
-      setTimeout(() => {
-        inicio.style.display = "none";
-      }, 950);
     }
 
-    inicio.addEventListener("click", iniciarAnimacion);
-    inicio.addEventListener("touchstart", iniciarAnimacion, { passive: true });
+    function toggleDedicatoria() {
+      estado.dedicatoriaVisible = !estado.dedicatoriaVisible;
+      dedicatoria.classList.toggle("visible", estado.dedicatoriaVisible);
+    }
 
+    inicio.addEventListener("click", iniciarExperiencia);
+    inicio.addEventListener("touchstart", iniciarExperiencia, { passive: true });
+
+    window.addEventListener("click", (e) => {
+      if (!estado.iniciado || !estado.completo) return;
+
+      if (Date.now() - estado.ultimoInicioClick < 900) return;
+
+      if (e.target.closest(".dedicatoria .tarjeta")) return;
+
+      toggleDedicatoria();
+    });
+
+    dedicatoria.addEventListener("click", () => {
+      toggleDedicatoria();
+    });
+
+    /* ===========================================
+       ANIMACIÓN
+    =========================================== */
     const reloj = new THREE.Clock();
 
     function animar() {
@@ -397,47 +662,79 @@
 
       const tiempo = reloj.getElapsedTime();
 
-      florCentral.scale.setScalar(5.4 + Math.sin(tiempo * 2.1) * 0.22);
+      /* flor central con latido */
+      const pulsoCentral = 8.8 + Math.sin(tiempo * 2.1) * 0.35;
+      florCentral.scale.set(pulsoCentral, pulsoCentral, pulsoCentral);
 
-      let progreso = 0;
-      let progresoSuave = 0;
+      estrellasFondo.rotation.y -= 0.00008;
+
+      if (!estado.iniciado) {
+        camara.position.lerp(new THREE.Vector3(0, 5, 17), 0.08);
+        camara.lookAt(0, 0, 0);
+      }
 
       if (estado.iniciado) {
-        progreso = clamp((performance.now() - estado.tiempoInicio) / estado.duracionConstruccion, 0, 1);
-        progresoSuave = easeOutCubic(progreso);
+        const progreso = clamp(
+          (performance.now() - estado.tiempoInicio) / DURACION_CONSTRUCCION,
+          0,
+          1
+        );
 
-        camara.position.z = 16 + (60 - 16) * progresoSuave;
-        camara.position.y = 0 + 8 * progresoSuave;
+        const suave = easeInOutCubic(progreso);
 
-        const visibles = Math.floor(flores.length * progresoSuave);
+        camara.position.x = 0;
+        camara.position.y = 18 + 10 * suave;
+        camara.position.z = 22 + 26 * suave;
 
-        flores.forEach((flor, index) => {
-          if (index < visibles) {
+        const floresVisibles = Math.floor(floresGalaxia.length * suave);
+
+        floresGalaxia.forEach((flor, index) => {
+          if (index < floresVisibles) {
             flor.userData.revelada = true;
           }
 
           if (flor.userData.revelada) {
-            flor.material.opacity += (0.92 - flor.material.opacity) * 0.06;
+            flor.userData.progress = clamp(flor.userData.progress + 0.018, 0, 1);
 
-            const escalaActual = flor.scale.x;
-            const escalaObjetivo = flor.userData.targetScale;
-            const nuevaEscala = escalaActual + (escalaObjetivo - escalaActual) * 0.07;
-            flor.scale.set(nuevaEscala, nuevaEscala, nuevaEscala);
-          }
+            const t = easeOutCubic(flor.userData.progress);
 
-          if (flor.userData.revelada) {
-            flor.userData.angulo += flor.userData.velocidad;
-            flor.position.x = Math.cos(flor.userData.angulo) * flor.userData.radio;
-            flor.position.z = Math.sin(flor.userData.angulo) * flor.userData.radio;
-            flor.position.y =
-              flor.userData.baseY +
-              Math.sin(tiempo * 0.65 + flor.userData.fase) * 0.18;
+            flor.position.lerpVectors(
+              flor.userData.start,
+              flor.userData.target,
+              t
+            );
+
+            flor.material.opacity += (0.94 - flor.material.opacity) * 0.08;
+
+            const escala = flor.scale.x + (flor.userData.targetScale - flor.scale.x) * 0.08;
+            flor.scale.set(escala, escala, escala);
+
+            if (flor.userData.progress >= 0.995) {
+              flor.position.y =
+                flor.userData.baseY +
+                Math.sin(tiempo * 0.8 + flor.userData.oscilacion) * 0.16;
+            }
           }
         });
 
-        grupoGalaxia.rotation.y += 0.0012;
+        grupoGalaxia.rotation.y += 0.0011;
 
-        if (progreso > 0.28) {
+        /* lluvia continua */
+        floresLluvia.forEach((flor) => {
+          const activar = progreso > 0.18 ? 1 : 0;
+          if (!activar) return;
+
+          flor.position.y -= flor.userData.velocidad;
+          flor.position.x += flor.userData.deriva;
+
+          flor.material.opacity += (0.34 - flor.material.opacity) * 0.03;
+
+          if (flor.position.y <= 2.2) {
+            reiniciarFlorLluvia(flor, true);
+          }
+        });
+
+        if (progreso > 0.15) {
           titulo.classList.add("visible");
         }
 
@@ -451,8 +748,6 @@
           controles.autoRotate = true;
           controles.autoRotateSpeed = 0.22;
         }
-      } else {
-        camara.lookAt(0, 0, 0);
       }
 
       controles.update();
