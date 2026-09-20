@@ -1674,6 +1674,11 @@ const materialLluvia =
     });
 
 
+/* =========================================================
+   MATERIAL DE LAS FLORES DEL MINIJUEGO
+   MÁS BRILLANTE
+========================================================= */
+
 const materialJuego =
     new THREE.SpriteMaterial({
 
@@ -1686,7 +1691,16 @@ const materialJuego =
         opacity:
             1,
 
+        color:
+            0xfff0a0,
+
+        blending:
+            THREE.AdditiveBlending,
+
         depthWrite:
+            false,
+
+        toneMapped:
             false
 
     });
@@ -2342,10 +2356,14 @@ function lanzarFlorJuego(
         3;
 
 
+    /*
+       MÁS GRANDES QUE LAS FLORES NORMALES
+    */
+
     flor.userData.baseScale =
-        2.4 +
+        4.0 +
         Math.random() *
-        .9;
+        1.4;
 
 
     flor.userData.fase =
@@ -3042,6 +3060,11 @@ function animarJuego(
                 delta;
 
 
+            /*
+               PULSO MÁS FUERTE PARA
+               DIFERENCIARLAS DEL RESTO
+            */
+
             const pulso =
 
                 flor.userData.baseScale
@@ -3063,7 +3086,7 @@ function animarJuego(
                     )
 
                     *
-                    .12
+                    .18
                 );
 
 
@@ -3138,17 +3161,6 @@ function animarExplosiones(
 
             delta *
             1.4;
-
-
-        const escala =
-
-            Math.max(
-
-                .001,
-
-                flor.userData.vida
-
-            );
 
 
         flor.scale.multiplyScalar(
